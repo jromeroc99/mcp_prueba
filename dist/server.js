@@ -1,29 +1,16 @@
-import { Server } from "@modelcontextprotocol/sdk/server/index.js"
-import { StdioServerTransport} from "@modelcontextprotocol/sdk/server/stdio.js"
+import { Server } from "@modelcontextprotocol/sdk/server/index.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { CallToolRequestSchema, ListToolsRequestSchema } from "@modelcontextprotocol/sdk/types.js";
-
-
-interface GreetArgs{
-    name: string;
-}
-
-const server = new Server(
-    {
-        name: "mcp-greet",
-        version: "0.1.0",
-        description: "A simple greeting server"
-    },
-    {
-        capabilities:{
-            tools:{
-
-            }
-        }
+const server = new Server({
+    name: "mcp-greet",
+    version: "0.1.0",
+    description: "A simple greeting server"
+}, {
+    capabilities: {
+        tools: {}
     }
-
-) 
-
-server.setRequestHandler(ListToolsRequestSchema, async () =>{
+});
+server.setRequestHandler(ListToolsRequestSchema, async () => {
     return {
         tools: [
             {
@@ -39,17 +26,14 @@ server.setRequestHandler(ListToolsRequestSchema, async () =>{
                     },
                     required: ["name"]
                 }
-
             }
         ]
-    }
+    };
 });
-
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
-    const {name, arguments: args } = request.params;
-
-    if(name==="greet"){
-        const { name: personName } = args as unknown as GreetArgs;
+    const { name, arguments: args } = request.params;
+    if (name === "greet") {
+        const { name: personName } = args;
         return {
             content: [
                 {
@@ -57,19 +41,15 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
                     text: `Hola, ${personName}"! Que fuerte que sos manín`
                 }
             ]
-        }
+        };
     }
-
-    throw new Error(`Tool ${name} not found`)
-
+    throw new Error(`Tool ${name} not found`);
 });
-
-async function main(): Promise<void> {
+async function main() {
     const transport = new StdioServerTransport();
     await server.connect(transport);
-    console.log("Tu basura de servidor esta corriendo, tonto...")
+    console.log("Tu basura de servidor esta corriendo, tonto...");
 }
-
 main().catch((error) => {
     console.error("Error arrancando el servidor:", error);
     process.exit(1);

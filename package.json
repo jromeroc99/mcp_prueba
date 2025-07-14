@@ -1,24 +1,16 @@
 {
   "name": "mcp_prueba",
   "version": "1.0.0",
-  "description": "```\r npm init\r ```",
   "main": "dist/server.js",
+  "type": "module",
   "scripts": {
     "build": "tsc",
-    "start": "npm run build && node dist/index.js",
-    "dev": "tsc && node dist/index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jromeroc99/mcp_prueba.git"
+    "start": "npm run build && node dist/server.js",
+    "dev": "tsc && node dist/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/jromeroc99/mcp_prueba/issues"
-  },
-  "homepage": "https://github.com/jromeroc99/mcp_prueba#readme",
   "devDependencies": {
     "@types/node": "^24.0.13",
     "typescript": "^5.8.3"
