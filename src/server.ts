@@ -67,7 +67,6 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
 async function main(): Promise<void> {
     const transport = new StdioServerTransport();
     await server.connect(transport);
-    console.log("Tu basura de servidor esta corriendo, tonto...")
 }
 
 main().catch((error) => {
